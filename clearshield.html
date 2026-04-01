@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ClearShield — Content Removal & Online Reputation Protection</title>
+
+<!-- Meta Pixel Code -->
+<script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;
+  n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];
+  t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)
+}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1559893358454440');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1559893358454440&ev=PageView&noscript=1"/></noscript>
+<!-- End Meta Pixel Code -->
+
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#05080f;--bg2:#0a0e1a;--bg3:#0d1225;
+  --surface:rgba(15,20,40,0.6);--surface2:rgba(20,28,58,0.4);
+  --glass:rgba(15,22,50,0.35);--glass-border:rgba(80,120,255,0.12);
+  --blue:#4d8dff;--blue-glow:#2563eb;--purple:#8b5cf6;--cyan:#06d6a0;
+  --neon:rgba(77,141,255,0.6);--neon-purple:rgba(139,92,246,0.5);
+  --text:#e8ecf4;--text2:#8892a8;--text3:#5a6478;
+  --radius:16px;--radius-sm:10px;
+}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--blue-glow);border-radius:3px}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+@keyframes pulse-glow{0%,100%{box-shadow:0 0 20px var(--neon),0 0 60px rgba(77,141,255,0.15)}50%{box-shadow:0 0 35px var(--neon),0 0 90px rgba(77,141,255,0.25)}}
+@keyframes rotate3d{from{transform:rotateY(0) rotateX(5deg)}to{transform:rotateY(360deg) rotateX(5deg)}}
+@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+@keyframes fade-up{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+@keyframes dissolve{0%{opacity:1;transform:scale(1) rotate(0deg)}100%{opacity:0;transform:scale(0.3) rotate(45deg);filter:blur(8px)}}
+@keyframes shield-pulse{0%,100%{filter:drop-shadow(0 0 15px rgba(77,141,255,0.5)) drop-shadow(0 0 40px rgba(139,92,246,0.2));transform:scale(1)}50%{filter:drop-shadow(0 0 25px rgba(77,141,255,0.7)) drop-shadow(0 0 60px rgba(139,92,246,0.35));transform:scale(1.03)}}
+@keyframes line-draw{from{stroke-dashoffset:800}to{stroke-dashoffset:0}}
+@keyframes orbit{from{transform:rotate(0deg) translateX(120px) rotate(0deg)}to{transform:rotate(360deg) translateX(120px) rotate(-360deg)}}
+@keyframes tilt-in{from{opacity:0;transform:perspective(600px) rotateX(-15deg) translateY(30px)}to{opacity:1;transform:perspective(600px) rotateX(0) translateY(0)}}
+@keyframes grid-move{from{transform:translate(0,0)}to{transform:translate(40px,40px)}}
+.reveal{opacity:0;transform:translateY(40px);transition:all 0.8s cubic-bezier(0.22,1,0.36,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:18px 40px;display:flex;align-items:center;justify-content:space-between;backdrop-filter:blur(20px) saturate(1.4);background:rgba(5,8,15,0.7);border-bottom:1px solid var(--glass-border);transition:all .4s}
+nav.scrolled{padding:12px 40px;background:rgba(5,8,15,0.92)}
+.logo{font-size:1.4rem;font-weight:700;letter-spacing:-.5px;display:flex;align-items:center;gap:10px}
+.logo-icon{width:34px;height:34px;border-radius:8px;background:linear-gradient(135deg,var(--blue),var(--purple));display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800;color:#fff;box-shadow:0 0 20px rgba(77,141,255,0.3)}
+.nav-links{display:flex;gap:32px;align-items:center}
+.nav-links a{color:var(--text2);text-decoration:none;font-size:.88rem;font-weight:400;transition:color .3s;position:relative}
+.nav-links a:hover{color:var(--text)}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:var(--blue);transition:width .3s}
+.nav-links a:hover::after{width:100%}
+.nav-cta{background:linear-gradient(135deg,var(--blue-glow),var(--purple));color:#fff!important;padding:10px 24px;border-radius:50px;font-weight:500;border:none;cursor:pointer;transition:all .3s;box-shadow:0 0 20px rgba(37,99,235,0.3)}
+.nav-cta:hover{transform:translateY(-2px);box-shadow:0 0 35px rgba(37,99,235,0.5)}
+.nav-cta::after{display:none!important}
+.menu-toggle{display:none;background:none;border:none;color:var(--text);font-size:1.5rem;cursor:pointer}
+.hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding:120px 40px 80px}
+.hero-grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(77,141,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(77,141,255,0.03) 1px,transparent 1px);background-size:60px 60px;animation:grid-move 20s linear infinite}
+.hero-radial{position:absolute;width:800px;height:800px;border-radius:50%;background:radial-gradient(circle,rgba(37,99,235,0.12) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}
+.hero-radial2{position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(139,92,246,0.08) 0%,transparent 70%);top:30%;right:10%;pointer-events:none}
+.hero-content{max-width:1300px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;position:relative;z-index:2;width:100%}
+.hero-text{animation:fade-up .9s ease}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--glass);border:1px solid var(--glass-border);padding:8px 18px;border-radius:50px;font-size:.78rem;color:var(--blue);font-weight:500;margin-bottom:28px;backdrop-filter:blur(10px)}
+.hero-badge .dot{width:8px;height:8px;border-radius:50%;background:var(--cyan);animation:pulse-glow 2s infinite}
+.hero h1{font-size:clamp(2.2rem,4.5vw,3.8rem);font-weight:800;line-height:1.1;letter-spacing:-.02em;margin-bottom:24px;background:linear-gradient(135deg,#fff 0%,#c8d6e5 50%,var(--blue) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero p{font-size:1.15rem;color:var(--text2);line-height:1.7;margin-bottom:36px;max-width:520px}
+.hero-buttons{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:32px}
+.btn-primary{background:linear-gradient(135deg,var(--blue-glow),var(--purple));color:#fff;padding:16px 36px;border-radius:50px;font-size:1rem;font-weight:600;border:none;cursor:pointer;transition:all .4s;box-shadow:0 4px 30px rgba(37,99,235,0.35);font-family:'Outfit',sans-serif;text-decoration:none;display:inline-flex;align-items:center;gap:8px}
+.btn-primary:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 8px 45px rgba(37,99,235,0.5)}
+.btn-secondary{background:transparent;color:var(--text);padding:16px 36px;border-radius:50px;font-size:1rem;font-weight:500;border:1px solid var(--glass-border);cursor:pointer;transition:all .4s;font-family:'Outfit',sans-serif;text-decoration:none;display:inline-flex;align-items:center;gap:8px;backdrop-filter:blur(5px)}
+.btn-secondary:hover{border-color:var(--blue);color:var(--blue);transform:translateY(-2px);box-shadow:0 0 25px rgba(77,141,255,0.15)}
+.trust-line{display:flex;align-items:center;gap:20px;font-size:.85rem;color:var(--text3)}
+.trust-line span{display:flex;align-items:center;gap:6px}
+.trust-line .sep{width:4px;height:4px;border-radius:50%;background:var(--text3)}
+.hero-visual{position:relative;display:flex;align-items:center;justify-content:center;height:500px;perspective:1000px}
+.shield-wrapper{position:relative;width:280px;height:320px;animation:float 6s ease-in-out infinite}
+.shield-svg{width:100%;height:100%;animation:shield-pulse 4s ease-in-out infinite}
+.orbit-icon{position:absolute;width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;backdrop-filter:blur(10px);border:1px solid var(--glass-border);box-shadow:0 0 20px rgba(77,141,255,0.2)}
+.orbit-icon:nth-child(2){top:10%;left:-20%;background:rgba(225,48,108,0.15);animation:float 4s ease-in-out infinite,dissolve 8s ease-in-out infinite alternate}
+.orbit-icon:nth-child(3){top:5%;right:-15%;background:rgba(66,103,178,0.15);animation:float 5s ease-in-out 0.5s infinite,dissolve 10s ease-in-out 1s infinite alternate}
+.orbit-icon:nth-child(4){bottom:20%;left:-25%;background:rgba(255,0,0,0.1);animation:float 4.5s ease-in-out 1s infinite,dissolve 9s ease-in-out 2s infinite alternate}
+.orbit-icon:nth-child(5){bottom:10%;right:-20%;background:rgba(255,252,0,0.08);animation:float 5.5s ease-in-out 1.5s infinite,dissolve 7s ease-in-out 0.5s infinite alternate}
+.orbit-icon:nth-child(6){top:45%;left:-35%;background:rgba(0,149,246,0.12);animation:float 3.8s ease-in-out 0.8s infinite,dissolve 11s ease-in-out 3s infinite alternate}
+.particle{position:absolute;width:3px;height:3px;border-radius:50%;background:var(--blue);opacity:.4}
+.particle:nth-child(7){top:20%;left:10%;animation:float 3s infinite}
+.particle:nth-child(8){top:60%;right:5%;animation:float 4s 1s infinite;background:var(--purple)}
+.particle:nth-child(9){bottom:30%;left:30%;animation:float 3.5s .5s infinite}
+.particle:nth-child(10){top:15%;right:30%;animation:float 4.5s 1.5s infinite;background:var(--cyan)}
+section{padding:100px 40px;position:relative}
+.section-label{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--blue);text-transform:uppercase;letter-spacing:3px;margin-bottom:16px;font-weight:500}
+.section-title{font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:700;letter-spacing:-.01em;margin-bottom:20px;line-height:1.15}
+.section-desc{color:var(--text2);font-size:1.05rem;line-height:1.7;max-width:600px}
+.container{max-width:1200px;margin:0 auto}
+.problem-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;margin-top:56px}
+.problem-card{background:var(--glass);border:1px solid var(--glass-border);border-radius:var(--radius);padding:36px 30px;backdrop-filter:blur(12px);transition:all .5s cubic-bezier(0.22,1,0.36,1);position:relative;overflow:hidden}
+.problem-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,60,60,0.05),transparent);opacity:0;transition:opacity .4s}
+.problem-card:hover{transform:perspective(600px) rotateX(2deg) rotateY(-3deg) translateY(-8px);border-color:rgba(255,60,60,0.2);box-shadow:0 20px 60px rgba(0,0,0,0.3)}
+.problem-card:hover::before{opacity:1}
+.problem-icon{width:52px;height:52px;border-radius:14px;background:rgba(255,60,60,0.1);display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:20px;border:1px solid rgba(255,60,60,0.15)}
+.problem-card h3{font-size:1.15rem;font-weight:600;margin-bottom:10px}
+.problem-card p{color:var(--text2);font-size:.9rem;line-height:1.6}
+.solution-section{background:var(--bg2)}
+.platform-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px;margin-top:56px}
+.platform-card{background:var(--glass);border:1px solid var(--glass-border);border-radius:var(--radius);padding:40px 28px;text-align:center;backdrop-filter:blur(12px);transition:all .5s;position:relative;overflow:hidden}
+.platform-card::after{content:'';position:absolute;inset:-2px;border-radius:var(--radius);background:linear-gradient(135deg,var(--blue),var(--purple),var(--cyan));opacity:0;z-index:-1;transition:opacity .4s;filter:blur(12px)}
+.platform-card:hover{transform:translateY(-10px);border-color:var(--blue)}
+.platform-card:hover::after{opacity:.2}
+.platform-icon{width:64px;height:64px;border-radius:18px;margin:0 auto 20px;display:flex;align-items:center;justify-content:center;font-size:30px;transition:all .5s}
+.platform-card:hover .platform-icon{transform:scale(1.15);filter:drop-shadow(0 0 15px currentColor)}
+.platform-card h3{font-size:1.05rem;font-weight:600;margin-bottom:6px}
+.platform-card p{font-size:.82rem;color:var(--text3)}
+.ig-icon{background:linear-gradient(135deg,#f58529,#dd2a7b,#8134af);color:#fff}
+.fb-icon{background:#1877f2;color:#fff}
+.yt-icon{background:#ff0000;color:#fff}
+.sc-icon{background:#fffc00;color:#000}
+.tg-icon{background:linear-gradient(135deg,#2aabee,#229ed9);color:#fff}
+.recovery-icon{background:linear-gradient(135deg,#06d6a0,#00b894);color:#fff}
+.steps-container{margin-top:56px;position:relative}
+.steps-line{position:absolute;left:32px;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--blue),var(--purple),transparent);opacity:.3}
+.step{display:flex;gap:36px;align-items:flex-start;margin-bottom:48px;position:relative}
+.step-num{width:64px;height:64px;min-width:64px;border-radius:50%;background:var(--glass);border:2px solid var(--blue);display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:1.1rem;font-weight:700;color:var(--blue);position:relative;z-index:2;transition:all .4s;box-shadow:0 0 20px rgba(77,141,255,0.1)}
+.step:hover .step-num{background:var(--blue);color:#fff;box-shadow:0 0 35px rgba(77,141,255,0.4)}
+.step-content h3{font-size:1.2rem;font-weight:600;margin-bottom:8px}
+.step-content p{color:var(--text2);font-size:.92rem;line-height:1.65;max-width:500px}
+.proof-section{background:var(--bg2)}
+.proof-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:56px}
+.proof-stat{background:var(--glass);border:1px solid var(--glass-border);border-radius:var(--radius);padding:44px 32px;text-align:center;backdrop-filter:blur(12px);transition:all .5s}
+.proof-stat:hover{transform:translateY(-6px);border-color:rgba(77,141,255,0.3);box-shadow:0 20px 60px rgba(0,0,0,0.25)}
+.proof-number{font-size:2.8rem;font-weight:800;background:linear-gradient(135deg,var(--blue),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:8px}
+.proof-stat p{color:var(--text2);font-size:.92rem}
+.case-previews{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:40px}
+.case-preview{background:var(--glass);border:1px solid var(--glass-border);border-radius:var(--radius);padding:28px;backdrop-filter:blur(12px);position:relative;overflow:hidden;transition:all .5s}
+.case-preview .blur-overlay{position:absolute;inset:0;backdrop-filter:blur(6px);background:rgba(5,8,15,0.5);display:flex;align-items:center;justify-content:center;transition:all .5s;z-index:2}
+.case-preview:hover .blur-overlay{backdrop-filter:blur(0px);background:rgba(5,8,15,0)}
+.blur-overlay span{background:var(--glass);padding:8px 20px;border-radius:50px;font-size:.8rem;border:1px solid var(--glass-border);transition:all .5s}
+.case-preview:hover .blur-overlay span{opacity:0}
+.case-meta{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--blue);margin-bottom:10px}
+.case-preview h4{font-size:.95rem;margin-bottom:6px}
+.case-preview p{font-size:.82rem;color:var(--text2)}
+.case-tag{display:inline-block;background:rgba(6,214,160,0.1);color:var(--cyan);padding:4px 12px;border-radius:50px;font-size:.72rem;margin-top:10px;border:1px solid rgba(6,214,160,0.15)}
+.pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:28px;margin-top:56px}
+.pricing-card{background:var(--glass);border:1px solid var(--glass-border);border-radius:20px;padding:44px 36px;backdrop-filter:blur(12px);transition:all .5s cubic-bezier(0.22,1,0.36,1);position:relative;overflow:hidden}
+.pricing-card.featured{border-color:var(--blue)}
+.pricing-card.featured::before{content:'';position:absolute;inset:-1px;border-radius:20px;background:linear-gradient(135deg,var(--blue),var(--purple));z-index:-1;opacity:.15}
+.pricing-card:hover{transform:translateY(-10px) scale(1.02);box-shadow:0 30px 80px rgba(0,0,0,0.35)}
+.pricing-card:hover.featured{box-shadow:0 30px 80px rgba(37,99,235,0.2)}
+.pricing-tier{font-family:'JetBrains Mono',monospace;font-size:.72rem;text-transform:uppercase;letter-spacing:2px;color:var(--blue);margin-bottom:12px}
+.pricing-card h3{font-size:1.3rem;font-weight:600;margin-bottom:8px}
+.pricing-range{font-size:2.2rem;font-weight:800;margin:16px 0;background:linear-gradient(135deg,#fff,var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.pricing-desc{color:var(--text2);font-size:.88rem;line-height:1.6;margin-bottom:24px}
+.pricing-features{list-style:none;margin-bottom:28px}
+.pricing-features li{padding:8px 0;color:var(--text2);font-size:.88rem;display:flex;align-items:center;gap:10px}
+.pricing-features li::before{content:'✓';color:var(--cyan);font-weight:700;font-size:.8rem}
+.featured-badge{position:absolute;top:20px;right:20px;background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff;font-size:.68rem;padding:5px 14px;border-radius:50px;font-weight:600;text-transform:uppercase;letter-spacing:1px}
+.cta-section{text-align:center;padding:120px 40px;position:relative;overflow:hidden}
+.cta-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(37,99,235,0.1) 0%,transparent 70%)}
+.cta-section h2{font-size:clamp(2rem,4vw,3.2rem);font-weight:800;margin-bottom:20px;background:linear-gradient(135deg,#fff,var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.cta-section p{color:var(--text2);font-size:1.1rem;margin-bottom:40px;max-width:500px;margin-left:auto;margin-right:auto}
+.urgency{font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--purple);margin-top:24px;display:flex;align-items:center;justify-content:center;gap:8px}
+.urgency .dot{width:6px;height:6px;border-radius:50%;background:var(--purple);animation:pulse-glow 1.5s infinite}
+.form-page{display:none;position:fixed;inset:0;z-index:2000;background:var(--bg);overflow-y:auto}
+.form-page.active{display:block}
+.form-wrapper{max-width:620px;margin:0 auto;padding:100px 40px 60px}
+.form-back{display:inline-flex;align-items:center;gap:8px;color:var(--text2);font-size:.88rem;cursor:pointer;margin-bottom:40px;transition:color .3s;background:none;border:none;font-family:'Outfit',sans-serif}
+.form-back:hover{color:var(--blue)}
+.form-container{background:var(--glass);border:1px solid var(--glass-border);border-radius:24px;padding:48px 40px;backdrop-filter:blur(20px);position:relative;overflow:hidden}
+.form-container::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:200px;height:2px;background:linear-gradient(90deg,transparent,var(--blue),var(--purple),transparent)}
+.form-container h2{font-size:1.8rem;font-weight:700;margin-bottom:8px;text-align:center}
+.form-container .form-sub{color:var(--text2);text-align:center;font-size:.9rem;margin-bottom:36px}
+.form-group{margin-bottom:22px;position:relative}
+.form-group label{display:block;font-size:.82rem;font-weight:500;color:var(--text2);margin-bottom:8px;transition:color .3s}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:14px 18px;background:rgba(10,14,26,0.8);border:1px solid rgba(80,120,255,0.1);border-radius:var(--radius-sm);color:var(--text);font-size:.92rem;font-family:'Outfit',sans-serif;transition:all .4s;outline:none}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(77,141,255,0.1),0 0 20px rgba(77,141,255,0.08)}
+.form-group textarea{min-height:110px;resize:vertical}
+.form-group select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%238892a8' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center;cursor:pointer}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-submit{width:100%;padding:16px;background:linear-gradient(135deg,var(--blue-glow),var(--purple));color:#fff;border:none;border-radius:50px;font-size:1rem;font-weight:600;cursor:pointer;font-family:'Outfit',sans-serif;transition:all .4s;margin-top:8px;box-shadow:0 4px 30px rgba(37,99,235,0.3)}
+.form-submit:hover{transform:translateY(-2px);box-shadow:0 8px 40px rgba(37,99,235,0.45)}
+.form-legal{text-align:center;font-size:.75rem;color:var(--text3);margin-top:20px}
+.success-message{display:none;text-align:center;padding:40px 20px}
+.success-message.active{display:block}
+.success-icon{width:72px;height:72px;border-radius:50%;background:rgba(6,214,160,0.1);border:2px solid var(--cyan);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 20px}
+.success-message h3{font-size:1.4rem;margin-bottom:10px}
+.success-message p{color:var(--text2);font-size:.92rem;margin-bottom:24px}
+.whatsapp-btn{display:inline-flex;align-items:center;gap:10px;background:#25d366;color:#fff;padding:14px 32px;border-radius:50px;font-weight:600;text-decoration:none;transition:all .3s;font-size:.95rem}
+.whatsapp-btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(37,211,102,0.3)}
+.trust-banner{text-align:center;padding:24px;border-top:1px solid var(--glass-border);border-bottom:1px solid var(--glass-border);background:rgba(10,14,26,0.5)}
+.trust-banner p{font-size:.82rem;color:var(--text3);display:flex;align-items:center;justify-content:center;gap:8px}
+.trust-banner .shield-sm{color:var(--cyan)}
+footer{padding:60px 40px 30px;border-top:1px solid var(--glass-border);background:var(--bg)}
+.footer-content{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px}
+.footer-copy{color:var(--text3);font-size:.82rem}
+.footer-links{display:flex;gap:24px}
+.footer-links a{color:var(--text3);font-size:.82rem;text-decoration:none;transition:color .3s}
+.footer-links a:hover{color:var(--text)}
+@media(max-width:900px){
+  .hero-content{grid-template-columns:1fr;text-align:center}
+  .hero p{margin-left:auto;margin-right:auto}
+  .hero-buttons{justify-content:center}
+  .trust-line{justify-content:center}
+  .hero-visual{height:350px;margin-top:-20px}
+  .proof-grid{grid-template-columns:1fr}
+  .form-row{grid-template-columns:1fr}
+  .nav-links{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(5,8,15,0.97);flex-direction:column;align-items:center;justify-content:center;gap:28px;z-index:999}
+  .nav-links.open{display:flex}
+  .menu-toggle{display:block;z-index:1001}
+  section{padding:70px 24px}
+  .form-container{padding:32px 24px}
+}
+@media(max-width:600px){
+  nav{padding:14px 20px}
+  .hero{padding:100px 20px 60px}
+  .hero h1{font-size:1.9rem}
+  .pricing-grid{grid-template-columns:1fr}
+  .steps-line{display:none}
+}
+</style>
+</head>
+<body>
+
+<nav id="navbar">
+  <div class="logo"><div class="logo-icon">CS</div>ClearShield</div>
+  <div class="nav-links" id="navLinks">
+    <a href="#problem">Problem</a>
+    <a href="#solution">Solution</a>
+    <a href="#how">Process</a>
+    <a href="#proof">Trust</a>
+    <a href="#pricing">Pricing</a>
+    <a class="nav-cta" onclick="openForm()">Submit Case</a>
+  </div>
+  <button class="menu-toggle" id="menuToggle" onclick="toggleMenu()">☰</button>
+</nav>
+
+<section class="hero" id="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-radial"></div>
+  <div class="hero-radial2"></div>
+  <div class="hero-content">
+    <div class="hero-text">
+      <div class="hero-badge"><span class="dot"></span> Trusted by 1000+ Clients Worldwide</div>
+      <h1>Remove Harmful Content From The Internet — Fast, Secure, Confidential</h1>
+      <p>We help individuals, creators, and businesses remove damaging content from Instagram, Facebook, YouTube, Telegram & more — plus full account recovery services.</p>
+      <div class="hero-buttons">
+        <a class="btn-primary" onclick="openForm()">🛡️ Submit Your Case</a>
+        <a class="btn-secondary" href="#how">How It Works →</a>
+      </div>
+      <div class="trust-line">
+        <span>🔒 1000+ Cases Handled</span><span class="sep"></span>
+        <span>🤝 100% Confidential</span><span class="sep"></span>
+        <span>⚡ Fast Turnaround</span>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="shield-wrapper">
+        <svg class="shield-svg" viewBox="0 0 200 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="sg" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#4d8dff" stop-opacity="0.8"/>
+              <stop offset="100%" stop-color="#8b5cf6" stop-opacity="0.6"/>
+            </linearGradient>
+            <filter id="glow">
+              <feGaussianBlur stdDeviation="4" result="g"/>
+              <feMerge><feMergeNode in="g"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+          </defs>
+          <path d="M100 10 L185 50 L185 130 Q185 200 100 230 Q15 200 15 130 L15 50 Z" fill="url(#sg)" fill-opacity="0.15" stroke="url(#sg)" stroke-width="1.5" filter="url(#glow)"/>
+          <path d="M100 35 L160 63 L160 125 Q160 182 100 205 Q40 182 40 125 L40 63 Z" fill="url(#sg)" fill-opacity="0.08" stroke="url(#sg)" stroke-width="0.5" stroke-opacity="0.5"/>
+          <path d="M80 125 L95 140 L125 105" stroke="#06d6a0" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)" stroke-dasharray="800" style="animation:line-draw 2s ease forwards"/>
+        </svg>
+        <div class="orbit-icon" style="font-size:22px">📸</div>
+        <div class="orbit-icon">📘</div>
+        <div class="orbit-icon">▶️</div>
+        <div class="orbit-icon">👻</div>
+        <div class="orbit-icon">🐦</div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="problem">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-label">// The Problem</span>
+      <h2 class="section-title">Your Online Reputation Is Under Attack</h2>
+      <p class="section-desc">In today's digital world, a single post can destroy years of trust. The damage compounds every second it stays online.</p>
+    </div>
+    <div class="problem-grid">
+      <div class="problem-card reveal"><div class="problem-icon">🔥</div><h3>Viral Negative Posts</h3><p>A damaging post goes viral and reaches thousands before you can react. Every share multiplies the harm.</p></div>
+      <div class="problem-card reveal"><div class="problem-icon">💀</div><h3>Reputation Damage</h3><p>Your personal and professional reputation takes a devastating hit. Future opportunities vanish overnight.</p></div>
+      <div class="problem-card reveal"><div class="problem-icon">🎭</div><h3>Fake Accusations</h3><p>False claims and fabricated stories spread faster than truth. Your credibility crumbles in real-time.</p></div>
+      <div class="problem-card reveal"><div class="problem-icon">⚔️</div><h3>Account Attacks</h3><p>Targeted harassment, impersonation accounts, and coordinated attacks designed to silence and destroy.</p></div>
+      <div class="problem-card reveal"><div class="problem-icon">🔐</div><h3>Hacked / Disabled Accounts</h3><p>Lost access to your social media or business account? We recover hacked, disabled, and locked accounts fast.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="solution" class="solution-section">
+  <div class="container">
+    <div class="reveal" style="text-align:center">
+      <span class="section-label">// The Solution</span>
+      <h2 class="section-title">We Remove Harmful Content<br>& Recover Your Accounts</h2>
+      <p class="section-desc" style="margin:0 auto">We use legal, ethical, and platform-compliant methods to eliminate damaging content and recover hacked or disabled accounts across all major platforms.</p>
+    </div>
+    <div class="platform-grid">
+      <div class="platform-card reveal"><div class="platform-icon ig-icon">📷</div><h3>Instagram</h3><p>Posts, Stories, Reels</p></div>
+      <div class="platform-card reveal"><div class="platform-icon fb-icon">f</div><h3>Facebook</h3><p>Posts, Pages, Groups</p></div>
+      <div class="platform-card reveal"><div class="platform-icon yt-icon">▶</div><h3>YouTube</h3><p>Videos, Comments, Channels</p></div>
+      <div class="platform-card reveal"><div class="platform-icon sc-icon">👻</div><h3>Snapchat</h3><p>Snaps, Stories, Spotlight</p></div>
+      <div class="platform-card reveal"><div class="platform-icon tg-icon">✈</div><h3>Telegram</h3><p>Channels, Groups, Bots</p></div>
+      <div class="platform-card reveal"><div class="platform-icon recovery-icon">🔑</div><h3>Account Recovery</h3><p>Hacked, Disabled, Locked</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-label">// Process</span>
+      <h2 class="section-title">How It Works</h2>
+      <p class="section-desc">A streamlined, confidential process from submission to complete removal.</p>
+    </div>
+    <div class="steps-container">
+      <div class="steps-line"></div>
+      <div class="step reveal"><div class="step-num">01</div><div class="step-content"><h3>Submit Your Case</h3><p>Share the details of the content you want removed. All submissions are encrypted and 100% confidential.</p></div></div>
+      <div class="step reveal"><div class="step-num">02</div><div class="step-content"><h3>Expert Analysis</h3><p>Our team analyzes the content, platform policies, and determines the optimal removal strategy within 24 hours.</p></div></div>
+      <div class="step reveal"><div class="step-num">03</div><div class="step-content"><h3>Strategic Action</h3><p>We execute the removal using legal, ethical, and platform-compliant methods. No shortcuts, no risks.</p></div></div>
+      <div class="step reveal"><div class="step-num">04</div><div class="step-content"><h3>Verified Removal</h3><p>Content is removed and verified. You receive a confirmation report with proof of removal.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="proof" class="proof-section">
+  <div class="container">
+    <div class="reveal" style="text-align:center">
+      <span class="section-label">// Trust & Proof</span>
+      <h2 class="section-title">Results That Speak</h2>
+    </div>
+    <div class="proof-grid">
+      <div class="proof-stat reveal"><div class="proof-number">1000+</div><p>Successful Removals</p></div>
+      <div class="proof-stat reveal"><div class="proof-number">48h</div><p>Average Resolution Time</p></div>
+      <div class="proof-stat reveal"><div class="proof-number">100%</div><p>Client Confidentiality</p></div>
+    </div>
+    <div class="case-previews">
+      <div class="case-preview reveal">
+        <div class="blur-overlay"><span>Hover to reveal</span></div>
+        <div class="case-meta">CASE #0041 — Instagram</div>
+        <h4>Viral Defamatory Post</h4>
+        <p>A fabricated story went viral with 50K+ shares. Removed within 36 hours through platform compliance channels.</p>
+        <span class="case-tag">✓ Resolved</span>
+      </div>
+      <div class="case-preview reveal">
+        <div class="blur-overlay"><span>Hover to reveal</span></div>
+        <div class="case-meta">CASE #0078 — YouTube</div>
+        <h4>Harassment Video Campaign</h4>
+        <p>Coordinated attack videos targeting a business owner. All 12 videos removed and channels flagged.</p>
+        <span class="case-tag">✓ Resolved</span>
+      </div>
+      <div class="case-preview reveal">
+        <div class="blur-overlay"><span>Hover to reveal</span></div>
+        <div class="case-meta">CASE #0093 — Facebook</div>
+        <h4>Fake Accusation Posts</h4>
+        <p>Multiple fake accounts spreading false accusations. Accounts reported and permanently disabled.</p>
+        <span class="case-tag">✓ Resolved</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="trust-banner">
+  <p><span class="shield-sm">🛡️</span> We do NOT use unsafe or illegal methods. All removals follow platform policies & legal frameworks.</p>
+</div>
+
+<section id="pricing">
+  <div class="container">
+    <div class="reveal" style="text-align:center">
+      <span class="section-label">// Pricing</span>
+      <h2 class="section-title">Transparent Pricing</h2>
+      <p class="section-desc" style="margin:0 auto">Every case is unique. Choose the tier that matches your situation.</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="pricing-card reveal">
+        <div class="pricing-tier">Tier 1</div>
+        <h3>Simple Removal</h3>
+        <div class="pricing-range">$100 – $500</div>
+        <p class="pricing-desc">Single post or comment removal from one platform. Ideal for straightforward cases.</p>
+        <ul class="pricing-features">
+          <li>Single content removal</li><li>One platform</li><li>48-hour turnaround</li><li>Removal confirmation</li>
+        </ul>
+        <a class="btn-secondary" onclick="openForm()" style="width:100%;justify-content:center;cursor:pointer">Get Started</a>
+      </div>
+      <div class="pricing-card featured reveal">
+        <div class="featured-badge">Most Popular</div>
+        <div class="pricing-tier">Tier 2</div>
+        <h3>Medium Complexity</h3>
+        <div class="pricing-range">$500 – $2,000</div>
+        <p class="pricing-desc">Multiple posts, cross-platform removal, or content that has gained moderate traction.</p>
+        <ul class="pricing-features">
+          <li>Multiple content pieces</li><li>Cross-platform action</li><li>Priority handling</li><li>Detailed report</li>
+        </ul>
+        <a class="btn-primary" onclick="openForm()" style="width:100%;justify-content:center;cursor:pointer">Get Started</a>
+      </div>
+      <div class="pricing-card reveal">
+        <div class="pricing-tier">Tier 3</div>
+        <h3>Complex Case</h3>
+        <div class="pricing-range">$2,000+</div>
+        <p class="pricing-desc">Viral content, coordinated attacks, legal-adjacent cases, or high-profile situations.</p>
+        <ul class="pricing-features">
+          <li>Full reputation management</li><li>All platforms covered</li><li>Dedicated case manager</li><li>Ongoing monitoring</li>
+        </ul>
+        <a class="btn-secondary" onclick="openForm()" style="width:100%;justify-content:center;cursor:pointer">Get Started</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="container reveal">
+    <h2>Your Reputation Is Your Asset.<br>Protect It Now.</h2>
+    <p>Every minute harmful content stays online, the damage grows. Take action today.</p>
+    <a class="btn-primary" onclick="openForm()" style="font-size:1.1rem;padding:18px 44px">🛡️ Submit Your Case Now</a>
+    <div class="urgency"><span class="dot"></span> Only limited cases accepted daily — priority given to urgent situations</div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-content">
+    <div>
+      <div class="logo" style="margin-bottom:8px"><div class="logo-icon">CS</div>ClearShield</div>
+      <p class="footer-copy">© 2026 ClearShield. All rights reserved.</p>
+    </div>
+    <div class="footer-links">
+      <a href="#hero">Home</a><a href="#how">Process</a><a href="#pricing">Pricing</a>
+      <a href="javascript:void(0)" onclick="openForm()">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<div class="form-page" id="formPage">
+  <div class="form-wrapper">
+    <button class="form-back" onclick="closeForm()">← Back to Home</button>
+    <div class="form-container" id="formContainer">
+      <h2>Submit Your Case</h2>
+      <p class="form-sub">All information is encrypted and handled with strict confidentiality.</p>
+      <form id="caseForm">
+        <div class="form-row">
+          <div class="form-group"><label>Full Name</label><input type="text" name="Name" placeholder="Your name" required></div>
+          <div class="form-group"><label>Email Address</label><input type="email" name="Email" placeholder="you@email.com" required></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>WhatsApp Number</label><input type="tel" name="WhatsApp" placeholder="+91 XXXXX XXXXX"></div>
+          <div class="form-group">
+            <label>Platform / Service</label>
+            <select name="Platform" required>
+              <option value="" disabled selected>Select platform</option>
+              <option>Instagram</option><option>Facebook</option><option>YouTube</option>
+              <option>Snapchat</option><option>Telegram</option><option>Twitter / X</option>
+              <option>TikTok</option><option>Account Recovery</option><option>Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group"><label>Content Link</label><input type="url" name="Content_Link" placeholder="https://..."></div>
+        <div class="form-group"><label>Describe the Issue</label><textarea name="Issue_Description" placeholder="Tell us what happened and what you need removed or recovered..."></textarea></div>
+        <div class="form-group">
+          <label>Budget Range</label>
+          <select name="Budget">
+            <option value="" disabled selected>Select budget range</option>
+            <option>$100 – $500</option><option>$500 – $2,000</option><option>$2,000+</option><option>Not sure yet</option>
+          </select>
+        </div>
+        <button type="submit" class="form-submit">Submit Case Securely 🔒</button>
+      </form>
+      <p class="form-legal">🔒 Your data is encrypted. We never share your information with third parties.</p>
+    </div>
+    <div class="success-message" id="successMsg">
+      <div class="success-icon">✓</div>
+      <h3>Case Received Successfully</h3>
+      <p>Our team will review your case within 24 hours. For a faster response, message <strong>"REMOVE"</strong> on WhatsApp.</p>
+      <a href="https://wa.me/917873679187?text=REMOVE" target="_blank" class="whatsapp-btn">💬 Message on WhatsApp</a>
+      <br><br>
+      <button class="form-back" onclick="closeForm()" style="margin-top:20px">← Back to Home</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 80);
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+reveals.forEach(el => observer.observe(el));
+
+const nav = document.getElementById('navbar');
+window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 60); });
+
+function toggleMenu() {
+  const links = document.getElementById('navLinks');
+  const btn = document.getElementById('menuToggle');
+  links.classList.toggle('open');
+  btn.textContent = links.classList.contains('open') ? '✕' : '☰';
+}
+document.querySelectorAll('.nav-links a').forEach(a => {
+  a.addEventListener('click', () => {
+    document.getElementById('navLinks').classList.remove('open');
+    document.getElementById('menuToggle').textContent = '☰';
+  });
+});
+
+function openForm() {
+  document.getElementById('formPage').classList.add('active');
+  document.body.style.overflow = 'hidden';
+  document.getElementById('formContainer').style.display = 'block';
+  document.getElementById('successMsg').classList.remove('active');
+}
+function closeForm() {
+  document.getElementById('formPage').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('caseForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const form = e.target;
+  const submitBtn = form.querySelector('.form-submit');
+  submitBtn.textContent = 'Submitting...';
+  submitBtn.disabled = true;
+  const formData = new FormData(form);
+  fetch('https://formsubmit.co/ajax/kumarsanjay86457@gmail.com', {
+    method: 'POST',
+    headers: { 'Accept': 'application/json' },
+    body: formData
+  })
+  .then(res => res.json())
+  .then(() => {
+    document.getElementById('formContainer').style.display = 'none';
+    document.getElementById('successMsg').classList.add('active');
+    form.reset();
+    submitBtn.textContent = 'Submit Case Securely 🔒';
+    submitBtn.disabled = false;
+  })
+  .catch(() => {
+    document.getElementById('formContainer').style.display = 'none';
+    document.getElementById('successMsg').classList.add('active');
+    form.reset();
+    submitBtn.textContent = 'Submit Case Securely 🔒';
+    submitBtn.disabled = false;
+  });
+});
+
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+
+window.addEventListener('scroll', () => {
+  const scrolled = window.scrollY;
+  const hero = document.querySelector('.hero-visual');
+  if (hero && scrolled < window.innerHeight) hero.style.transform = `translateY(${scrolled * 0.15}px)`;
+});
+
+document.querySelectorAll('.problem-card, .pricing-card').forEach(card => {
+  card.addEventListener('mousemove', e => {
+    const rect = card.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    card.style.transform = `perspective(600px) rotateX(${y * -6}deg) rotateY(${x * 6}deg) translateY(-8px)`;
+  });
+  card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+});
+</script>
+</body>
+</html>
