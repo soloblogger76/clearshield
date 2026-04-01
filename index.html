@@ -18,12 +18,13 @@
   s.parentNode.insertBefore(t,s)
 }(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
-
-fbq('init', '1559893358454440'); 
+fbq('init', '1559893358454440');
 fbq('track', 'PageView');
 </script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1559893358454440&ev=PageView&noscript=1"/></noscript>
+<!-- End Meta Pixel Code -->
 
-</head>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
@@ -39,12 +40,10 @@ fbq('track', 'PageView');
 html{scroll-behavior:smooth;overflow-x:hidden}
 body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;-webkit-font-smoothing:antialiased}
 
-/* SCROLLBAR */
 ::-webkit-scrollbar{width:6px}
 ::-webkit-scrollbar-track{background:var(--bg)}
 ::-webkit-scrollbar-thumb{background:var(--blue-glow);border-radius:3px}
 
-/* GLOBAL ANIMATIONS */
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
 @keyframes pulse-glow{0%,100%{box-shadow:0 0 20px var(--neon),0 0 60px rgba(77,141,255,0.15)}50%{box-shadow:0 0 35px var(--neon),0 0 90px rgba(77,141,255,0.25)}}
 @keyframes rotate3d{from{transform:rotateY(0) rotateX(5deg)}to{transform:rotateY(360deg) rotateX(5deg)}}
@@ -60,7 +59,6 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);over
 .reveal{opacity:0;transform:translateY(40px);transition:all 0.8s cubic-bezier(0.22,1,0.36,1)}
 .reveal.visible{opacity:1;transform:translateY(0)}
 
-/* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:18px 40px;display:flex;align-items:center;justify-content:space-between;backdrop-filter:blur(20px) saturate(1.4);background:rgba(5,8,15,0.7);border-bottom:1px solid var(--glass-border);transition:all .4s}
 nav.scrolled{padding:12px 40px;background:rgba(5,8,15,0.92)}
 .logo{font-size:1.4rem;font-weight:700;letter-spacing:-.5px;display:flex;align-items:center;gap:10px}
@@ -75,12 +73,8 @@ nav.scrolled{padding:12px 40px;background:rgba(5,8,15,0.92)}
 .nav-cta::after{display:none!important}
 .menu-toggle{display:none;background:none;border:none;color:var(--text);font-size:1.5rem;cursor:pointer}
 
-/* HERO */
 .hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding:120px 40px 80px}
-.hero-grid-bg{position:absolute;inset:0;background-image:
-  linear-gradient(rgba(77,141,255,0.03) 1px,transparent 1px),
-  linear-gradient(90deg,rgba(77,141,255,0.03) 1px,transparent 1px);
-  background-size:60px 60px;animation:grid-move 20s linear infinite}
+.hero-grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(77,141,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(77,141,255,0.03) 1px,transparent 1px);background-size:60px 60px;animation:grid-move 20s linear infinite}
 .hero-radial{position:absolute;width:800px;height:800px;border-radius:50%;background:radial-gradient(circle,rgba(37,99,235,0.12) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}
 .hero-radial2{position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(139,92,246,0.08) 0%,transparent 70%);top:30%;right:10%;pointer-events:none}
 .hero-content{max-width:1300px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;position:relative;z-index:2;width:100%}
@@ -98,7 +92,6 @@ nav.scrolled{padding:12px 40px;background:rgba(5,8,15,0.92)}
 .trust-line span{display:flex;align-items:center;gap:6px}
 .trust-line .sep{width:4px;height:4px;border-radius:50%;background:var(--text3)}
 
-/* HERO 3D */
 .hero-visual{position:relative;display:flex;align-items:center;justify-content:center;height:500px;perspective:1000px}
 .shield-wrapper{position:relative;width:280px;height:320px;animation:float 6s ease-in-out infinite}
 .shield-svg{width:100%;height:100%;animation:shield-pulse 4s ease-in-out infinite}
@@ -114,14 +107,12 @@ nav.scrolled{padding:12px 40px;background:rgba(5,8,15,0.92)}
 .particle:nth-child(9){bottom:30%;left:30%;animation:float 3.5s .5s infinite}
 .particle:nth-child(10){top:15%;right:30%;animation:float 4.5s 1.5s infinite;background:var(--cyan)}
 
-/* SECTIONS */
 section{padding:100px 40px;position:relative}
 .section-label{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--blue);text-transform:uppercase;letter-spacing:3px;margin-bottom:16px;font-weight:500}
 .section-title{font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:700;letter-spacing:-.01em;margin-bottom:20px;line-height:1.15}
 .section-desc{color:var(--text2);font-size:1.05rem;line-height:1.7;max-width:600px}
 .container{max-width:1200px;margin:0 auto}
 
-/* PROBLEM */
 .problem-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;margin-top:56px}
 .problem-card{background:var(--glass);border:1px solid var(--glass-border);border-radius:var(--radius);padding:36px 30px;backdrop-filter:blur(12px);transition:all .5s cubic-bezier(0.22,1,0.36,1);position:relative;overflow:hidden}
 .problem-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,60,60,0.05),transparent);opacity:0;transition:opacity .4s}
@@ -131,7 +122,6 @@ section{padding:100px 40px;position:relative}
 .problem-card h3{font-size:1.15rem;font-weight:600;margin-bottom:10px}
 .problem-card p{color:var(--text2);font-size:.9rem;line-height:1.6}
 
-/* SOLUTION */
 .solution-section{background:var(--bg2)}
 .platform-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px;margin-top:56px}
 .platform-card{background:var(--glass);border:1px solid var(--glass-border);border-radius:var(--radius);padding:40px 28px;text-align:center;backdrop-filter:blur(12px);transition:all .5s;position:relative;overflow:hidden}
@@ -149,7 +139,6 @@ section{padding:100px 40px;position:relative}
 .tg-icon{background:linear-gradient(135deg,#2aabee,#229ed9);color:#fff}
 .recovery-icon{background:linear-gradient(135deg,#06d6a0,#00b894);color:#fff}
 
-/* HOW IT WORKS */
 .steps-container{margin-top:56px;position:relative}
 .steps-line{position:absolute;left:32px;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--blue),var(--purple),transparent);opacity:.3}
 .step{display:flex;gap:36px;align-items:flex-start;margin-bottom:48px;position:relative}
@@ -158,7 +147,6 @@ section{padding:100px 40px;position:relative}
 .step-content h3{font-size:1.2rem;font-weight:600;margin-bottom:8px}
 .step-content p{color:var(--text2);font-size:.92rem;line-height:1.65;max-width:500px}
 
-/* PROOF */
 .proof-section{background:var(--bg2)}
 .proof-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:56px}
 .proof-stat{background:var(--glass);border:1px solid var(--glass-border);border-radius:var(--radius);padding:44px 32px;text-align:center;backdrop-filter:blur(12px);transition:all .5s}
@@ -176,7 +164,6 @@ section{padding:100px 40px;position:relative}
 .case-preview p{font-size:.82rem;color:var(--text2)}
 .case-tag{display:inline-block;background:rgba(6,214,160,0.1);color:var(--cyan);padding:4px 12px;border-radius:50px;font-size:.72rem;margin-top:10px;border:1px solid rgba(6,214,160,0.15)}
 
-/* PRICING */
 .pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:28px;margin-top:56px}
 .pricing-card{background:var(--glass);border:1px solid var(--glass-border);border-radius:20px;padding:44px 36px;backdrop-filter:blur(12px);transition:all .5s cubic-bezier(0.22,1,0.36,1);position:relative;overflow:hidden}
 .pricing-card.featured{border-color:var(--blue)}
@@ -192,7 +179,6 @@ section{padding:100px 40px;position:relative}
 .pricing-features li::before{content:'✓';color:var(--cyan);font-weight:700;font-size:.8rem}
 .featured-badge{position:absolute;top:20px;right:20px;background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff;font-size:.68rem;padding:5px 14px;border-radius:50px;font-weight:600;text-transform:uppercase;letter-spacing:1px}
 
-/* CTA */
 .cta-section{text-align:center;padding:120px 40px;position:relative;overflow:hidden}
 .cta-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(37,99,235,0.1) 0%,transparent 70%)}
 .cta-section h2{font-size:clamp(2rem,4vw,3.2rem);font-weight:800;margin-bottom:20px;background:linear-gradient(135deg,#fff,var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
@@ -200,7 +186,6 @@ section{padding:100px 40px;position:relative}
 .urgency{font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--purple);margin-top:24px;display:flex;align-items:center;justify-content:center;gap:8px}
 .urgency .dot{width:6px;height:6px;border-radius:50%;background:var(--purple);animation:pulse-glow 1.5s infinite}
 
-/* FORM PAGE */
 .form-page{display:none;position:fixed;inset:0;z-index:2000;background:var(--bg);overflow-y:auto}
 .form-page.active{display:block}
 .form-wrapper{max-width:620px;margin:0 auto;padding:100px 40px 60px}
@@ -214,7 +199,6 @@ section{padding:100px 40px;position:relative}
 .form-group label{display:block;font-size:.82rem;font-weight:500;color:var(--text2);margin-bottom:8px;transition:color .3s}
 .form-group input,.form-group select,.form-group textarea{width:100%;padding:14px 18px;background:rgba(10,14,26,0.8);border:1px solid rgba(80,120,255,0.1);border-radius:var(--radius-sm);color:var(--text);font-size:.92rem;font-family:'Outfit',sans-serif;transition:all .4s;outline:none}
 .form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(77,141,255,0.1),0 0 20px rgba(77,141,255,0.08)}
-.form-group input:focus ~ label,.form-group select:focus ~ label,.form-group textarea:focus ~ label{color:var(--blue)}
 .form-group textarea{min-height:110px;resize:vertical}
 .form-group select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%238892a8' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center;cursor:pointer}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
@@ -229,12 +213,10 @@ section{padding:100px 40px;position:relative}
 .whatsapp-btn{display:inline-flex;align-items:center;gap:10px;background:#25d366;color:#fff;padding:14px 32px;border-radius:50px;font-weight:600;text-decoration:none;transition:all .3s;font-size:.95rem}
 .whatsapp-btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(37,211,102,0.3)}
 
-/* TRUST BANNER */
 .trust-banner{text-align:center;padding:24px;border-top:1px solid var(--glass-border);border-bottom:1px solid var(--glass-border);background:rgba(10,14,26,0.5)}
 .trust-banner p{font-size:.82rem;color:var(--text3);display:flex;align-items:center;justify-content:center;gap:8px}
 .trust-banner .shield-sm{color:var(--cyan)}
 
-/* FOOTER */
 footer{padding:60px 40px 30px;border-top:1px solid var(--glass-border);background:var(--bg)}
 .footer-content{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px}
 .footer-copy{color:var(--text3);font-size:.82rem}
@@ -242,7 +224,6 @@ footer{padding:60px 40px 30px;border-top:1px solid var(--glass-border);backgroun
 .footer-links a{color:var(--text3);font-size:.82rem;text-decoration:none;transition:color .3s}
 .footer-links a:hover{color:var(--text)}
 
-/* RESPONSIVE */
 @media(max-width:900px){
   .hero-content{grid-template-columns:1fr;text-align:center}
   .hero p{margin-left:auto;margin-right:auto}
@@ -268,7 +249,6 @@ footer{padding:60px 40px 30px;border-top:1px solid var(--glass-border);backgroun
 </head>
 <body>
 
-<!-- NAV -->
 <nav id="navbar">
   <div class="logo">
     <div class="logo-icon">CS</div>
@@ -285,7 +265,6 @@ footer{padding:60px 40px 30px;border-top:1px solid var(--glass-border);backgroun
   <button class="menu-toggle" id="menuToggle" onclick="toggleMenu()">☰</button>
 </nav>
 
-<!-- HERO -->
 <section class="hero" id="hero">
   <div class="hero-grid-bg"></div>
   <div class="hero-radial"></div>
@@ -309,7 +288,6 @@ footer{padding:60px 40px 30px;border-top:1px solid var(--glass-border);backgroun
     </div>
     <div class="hero-visual">
       <div class="shield-wrapper">
-        <!-- Shield SVG -->
         <svg class="shield-svg" viewBox="0 0 200 240" fill="none" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <linearGradient id="sg" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -321,20 +299,15 @@ footer{padding:60px 40px 30px;border-top:1px solid var(--glass-border);backgroun
               <feMerge><feMergeNode in="g"/><feMergeNode in="SourceGraphic"/></feMerge>
             </filter>
           </defs>
-          <path d="M100 10 L185 50 L185 130 Q185 200 100 230 Q15 200 15 130 L15 50 Z" 
-                fill="url(#sg)" fill-opacity="0.15" stroke="url(#sg)" stroke-width="1.5" filter="url(#glow)"/>
-          <path d="M100 35 L160 63 L160 125 Q160 182 100 205 Q40 182 40 125 L40 63 Z" 
-                fill="url(#sg)" fill-opacity="0.08" stroke="url(#sg)" stroke-width="0.5" stroke-opacity="0.5"/>
-          <path d="M80 125 L95 140 L125 105" stroke="#06d6a0" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" 
-                filter="url(#glow)" stroke-dasharray="800" style="animation:line-draw 2s ease forwards"/>
+          <path d="M100 10 L185 50 L185 130 Q185 200 100 230 Q15 200 15 130 L15 50 Z" fill="url(#sg)" fill-opacity="0.15" stroke="url(#sg)" stroke-width="1.5" filter="url(#glow)"/>
+          <path d="M100 35 L160 63 L160 125 Q160 182 100 205 Q40 182 40 125 L40 63 Z" fill="url(#sg)" fill-opacity="0.08" stroke="url(#sg)" stroke-width="0.5" stroke-opacity="0.5"/>
+          <path d="M80 125 L95 140 L125 105" stroke="#06d6a0" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)" stroke-dasharray="800" style="animation:line-draw 2s ease forwards"/>
         </svg>
-        <!-- Floating Social Icons -->
         <div class="orbit-icon" style="font-size:22px">📸</div>
         <div class="orbit-icon">📘</div>
         <div class="orbit-icon">▶️</div>
         <div class="orbit-icon">👻</div>
         <div class="orbit-icon">🐦</div>
-        <!-- Particles -->
         <div class="particle"></div>
         <div class="particle"></div>
         <div class="particle"></div>
@@ -344,7 +317,6 @@ footer{padding:60px 40px 30px;border-top:1px solid var(--glass-border);backgroun
   </div>
 </section>
 
-<!-- PROBLEM -->
 <section id="problem">
   <div class="container">
     <div class="reveal">
@@ -382,7 +354,6 @@ footer{padding:60px 40px 30px;border-top:1px solid var(--glass-border);backgroun
   </div>
 </section>
 
-<!-- SOLUTION -->
 <section id="solution" class="solution-section">
   <div class="container">
     <div class="reveal" style="text-align:center">
@@ -425,7 +396,6 @@ footer{padding:60px 40px 30px;border-top:1px solid var(--glass-border);backgroun
   </div>
 </section>
 
-<!-- HOW IT WORKS -->
 <section id="how">
   <div class="container">
     <div class="reveal">
@@ -467,7 +437,6 @@ footer{padding:60px 40px 30px;border-top:1px solid var(--glass-border);backgroun
   </div>
 </section>
 
-<!-- PROOF -->
 <section id="proof" class="proof-section">
   <div class="container">
     <div class="reveal" style="text-align:center">
@@ -514,12 +483,10 @@ footer{padding:60px 40px 30px;border-top:1px solid var(--glass-border);backgroun
   </div>
 </section>
 
-<!-- TRUST BANNER -->
 <div class="trust-banner">
   <p><span class="shield-sm">🛡️</span> We do NOT use unsafe or illegal methods. All removals follow platform policies & legal frameworks.</p>
 </div>
 
-<!-- PRICING -->
 <section id="pricing">
   <div class="container">
     <div class="reveal" style="text-align:center">
@@ -572,7 +539,6 @@ footer{padding:60px 40px 30px;border-top:1px solid var(--glass-border);backgroun
   </div>
 </section>
 
-<!-- FINAL CTA -->
 <section class="cta-section">
   <div class="container reveal">
     <h2>Your Reputation Is Your Asset.<br>Protect It Now.</h2>
@@ -582,7 +548,6 @@ footer{padding:60px 40px 30px;border-top:1px solid var(--glass-border);backgroun
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <div class="footer-content">
     <div>
@@ -601,17 +566,13 @@ footer{padding:60px 40px 30px;border-top:1px solid var(--glass-border);backgroun
   </div>
 </footer>
 
-<!-- FORM PAGE OVERLAY -->
 <div class="form-page" id="formPage">
   <div class="form-wrapper">
     <button class="form-back" onclick="closeForm()">← Back to Home</button>
     <div class="form-container" id="formContainer">
       <h2>Submit Your Case</h2>
       <p class="form-sub">All information is encrypted and handled with strict confidentiality.</p>
-      <form id="caseForm" action="https://formsubmit.co/kumarsanjay86457@gmail.com" method="POST">
-        <input type="hidden" name="_subject" value="🛡️ New ClearShield Case Submission">
-        <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="_template" value="box">
+      <form id="caseForm">
         <div class="form-row">
           <div class="form-group">
             <label>Full Name</label>
@@ -665,8 +626,6 @@ footer{padding:60px 40px 30px;border-top:1px solid var(--glass-border);backgroun
       </form>
       <p class="form-legal">🔒 Your data is encrypted. We never share your information with third parties.</p>
     </div>
-
-    <!-- Success Message -->
     <div class="success-message" id="successMsg">
       <div class="success-icon">✓</div>
       <h3>Case Received Successfully</h3>
@@ -679,7 +638,6 @@ footer{padding:60px 40px 30px;border-top:1px solid var(--glass-border);backgroun
 </div>
 
 <script>
-// Scroll reveal
 const reveals = document.querySelectorAll('.reveal');
 const observer = new IntersectionObserver((entries) => {
   entries.forEach((e, i) => {
@@ -691,13 +649,11 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 reveals.forEach(el => observer.observe(el));
 
-// Nav scroll
 const nav = document.getElementById('navbar');
 window.addEventListener('scroll', () => {
   nav.classList.toggle('scrolled', window.scrollY > 60);
 });
 
-// Mobile menu
 function toggleMenu() {
   const links = document.getElementById('navLinks');
   const btn = document.getElementById('menuToggle');
@@ -705,7 +661,6 @@ function toggleMenu() {
   btn.textContent = links.classList.contains('open') ? '✕' : '☰';
 }
 
-// Close menu on link click
 document.querySelectorAll('.nav-links a').forEach(a => {
   a.addEventListener('click', () => {
     document.getElementById('navLinks').classList.remove('open');
@@ -713,7 +668,6 @@ document.querySelectorAll('.nav-links a').forEach(a => {
   });
 });
 
-// Form page
 function openForm() {
   document.getElementById('formPage').classList.add('active');
   document.body.style.overflow = 'hidden';
@@ -725,20 +679,21 @@ function closeForm() {
   document.body.style.overflow = '';
 }
 
-// Handle form submit via AJAX to FormSubmit
 document.getElementById('caseForm').addEventListener('submit', function(e) {
   e.preventDefault();
   const form = e.target;
-  const formData = new FormData(form);
   const submitBtn = form.querySelector('.form-submit');
   submitBtn.textContent = 'Submitting...';
   submitBtn.disabled = true;
 
+  const formData = new FormData(form);
+
   fetch('https://formsubmit.co/ajax/kumarsanjay86457@gmail.com', {
     method: 'POST',
+    headers: { 'Accept': 'application/json' },
     body: formData
   })
-  .then(response => response.json())
+  .then(res => res.json())
   .then(data => {
     document.getElementById('formContainer').style.display = 'none';
     document.getElementById('successMsg').classList.add('active');
@@ -746,8 +701,7 @@ document.getElementById('caseForm').addEventListener('submit', function(e) {
     submitBtn.textContent = 'Submit Case Securely 🔒';
     submitBtn.disabled = false;
   })
-  .catch(error => {
-    // Fallback: still show success (FormSubmit may block CORS on first use)
+  .catch(() => {
     document.getElementById('formContainer').style.display = 'none';
     document.getElementById('successMsg').classList.add('active');
     form.reset();
@@ -756,7 +710,6 @@ document.getElementById('caseForm').addEventListener('submit', function(e) {
   });
 });
 
-// Smooth scroll for anchor links
 document.querySelectorAll('a[href^="#"]').forEach(a => {
   a.addEventListener('click', e => {
     e.preventDefault();
@@ -765,7 +718,6 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
   });
 });
 
-// Parallax on hero
 window.addEventListener('scroll', () => {
   const scrolled = window.scrollY;
   const hero = document.querySelector('.hero-visual');
@@ -774,7 +726,6 @@ window.addEventListener('scroll', () => {
   }
 });
 
-// Interactive tilt on problem cards
 document.querySelectorAll('.problem-card, .pricing-card').forEach(card => {
   card.addEventListener('mousemove', e => {
     const rect = card.getBoundingClientRect();
